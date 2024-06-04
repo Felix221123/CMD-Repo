@@ -119,3 +119,9 @@ Here is a list of install commands used to set up Vitest and jsdom for applicati
     ```json
     "test:ui": "vitest --ui"
     ```
+
+9. import these from the react testing library to begin your test:
+
+    ```javascript
+    import {screen , render } from "@testing-library/react";
+    ```
