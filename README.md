@@ -53,7 +53,7 @@ How to add Tailwind CSS to your project:
     "css": "npx tailwindcss -i ./src/index.css -o ./public/output.css --watch"
     ```
 
-### Setting up Vitest (Tools for Testing Your Apps) in Your Project
+### Setting up Vitest (Tools for Testing React Apps) in Your Project
 
 Here is a list of install commands used to set up Vitest and jsdom for application testing:
 
@@ -125,3 +125,91 @@ Here is a list of install commands used to set up Vitest and jsdom for applicati
     ```javascript
     import {screen , render } from "@testing-library/react";
     ```
+
+
+### Setting up Cypress Testing (Tools for React Apps) in Your Project
+
+1. Install Cypress:
+
+    ```bash
+    npm install cypress --save-dev
+    ```
+
+2. Add this to your scripts object in your `package.json`:
+
+    ```json
+    "cy:open": "cypress open"
+    ```
+
+3. Choose Component testing and you be asked to choose your bundler, Cypress will automatically detect the bundler you are using for your react application and you can continue from there
+
+4. Create a new component from the create new component and choose a new component to start with in your project
+
+### Cypress TypeScript Configuration
+
+To configure Cypress with TypeScript, follow these steps:
+
+5. **Update `tsconfig.json`**:
+   Include the Cypress folder in your TypeScript configuration to eliminate errors:
+   ```json
+   "include": ["src", "cypress"],
+   ```
+
+6. **Add Cypress Commands**:
+   If the above step doesn't resolve the errors, add the mount to the Cypress interface by modifying the `commands.ts` file:
+   ```typescript
+   import { mount } from 'cypress/react';
+
+   declare global {
+     namespace Cypress {
+       interface Chainable {
+         mount: typeof mount;
+       }
+     }
+   }
+
+   Cypress.Commands.add('mount', mount);
+   ```
+
+7. **Handle Custom Commands**:
+   To resolve similar errors for custom commands, update the `commands.ts` file:
+   ```typescript
+   import { mount } from 'cypress/react';
+
+   declare global {
+     namespace Cypress {
+       interface Chainable {
+         mount: typeof mount;
+         dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+       }
+     }
+   }
+
+   Cypress.Commands.add('mount', mount);
+
+   Cypress.Commands.add('dataCy', (value) => {
+     return cy.get(`[data-cy=${value}]`);
+   });
+   ```
+
+8. **Fix Augmentations Errors**:
+   To fix errors related to global scope augmentations, create a `cypress.d.ts` file in the root directory (or preferred location) of your project:
+   ```typescript
+   import { mount } from 'cypress/react';
+
+   declare global {
+     namespace Cypress {
+       interface Chainable {
+         mount: typeof mount;
+         dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+       }
+     }
+   }
+   ```
+
+9. **Update `tsconfig.json`**:
+   Point to the new typing file by updating the includes:
+   ```json
+   "include": ["src", "cypress", "./cypress.d.ts"],
+   ```
+
