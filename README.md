@@ -55,76 +55,104 @@ How to add Tailwind CSS to your project:
 
 ### Setting up Vitest (Tools for Testing React Apps) in Your Project
 
-Here is a list of install commands used to set up Vitest and jsdom for application testing:
+#### Installation
 
-1. Install Vitest:
+This module should be installed as one of your project's `devDependencies`:
 
-    ```bash
-    npm i -D vitest
-    ```
+```shell
+# with npm
+npm install --save-dev vitest-dom
+# yarn
+yarn add --dev vitest-dom
+# pnpm
+pnpm add --dev vitest-dom
+```
 
-2. Add this to your scripts object in your `package.json`:
+Install jsdom and other necessary packages:
 
-    ```json
-    "test": "vitest"
-    ```
+```shell
+npm install --save-dev jsdom @testing-library/react @testing-library/jest-dom
+```
 
-3. Install jsdom and other packages:
+Import the matchers from `vitest-dom/matchers` once (preferably in your [tests setup file](#)), then pass them to Vitest's `expect.extend` method:
 
-    ```bash
-    npm i -D jsdom @testing-library/react @testing-library/jest-dom
-    ```
+```typescript
+import * as matchers from "vitest-dom/matchers";
+import { expect, afterEach } from "vitest";
+import { cleanup } from "@testing-library/react";
 
-4. Make sure your Vite config looks exactly like this:
+expect.extend(matchers);
 
-    ```javascript
-    /// <reference types="vitest" />
-    /// <reference types="vite/client" />
+// vitest-setup.ts
+import "vitest-dom/extend-expect";
 
-    import { defineConfig } from 'vite';
-    import react from '@vitejs/plugin-react';
+// runs a cleanup after each test case (e.g. clearing jsdom)
+afterEach(() => {
+  cleanup();
+});
+```
 
-    // https://vitejs.dev/config/
-    export default defineConfig({
-      plugins: [react()],
-      test: {
-        globals: true,
-        environment: 'jsdom',
-        css: true,
-        setupFiles: './src/test/setup.ts',
-      },
-    });
-    ```
+You can also configure Vitest to use `vitest-dom` in your test files or `tsconfig.json`:
 
-5. Add the `types` key to your compiler options in your `tsconfig.json`:
+1. In your test file via a reference directive:
 
-    ```json
-    "types": ["vitest/globals"]
-    ```
+   ```typescript
+   /// <reference types="vitest-dom/extend-expect" />
+   ```
 
-6. Create a folder in your `src` folder named `test` and add a file named `setup.ts` inside it. Paste this inside the file:
+2. In your `tsconfig.json` via the `types` compiler option:
 
-    ```javascript
-    import '@testing-library/jest-dom';
-    ```
+   ```json
+   {
+     "compilerOptions": {
+       "types": ["vitest-dom/extend-expect"]
+     }
+   }
+   ```
 
-7. Install the UI version of the test results (gives out a clear version):
+Ensure your Vite config is set up correctly:
 
-    ```bash
-    npm i -D @vitest/ui
-    ```
+```javascript
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
 
-8. Add this to your `package.json` script objects to run your tests:
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-    ```json
-    "test:ui": "vitest --ui"
-    ```
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    css: true,
+    setupFiles: './src/test/setup.ts',
+  },
+});
+```
 
-9. import these from the react testing library to begin your test:
+Install the UI version of the test results for a clear visual output:
 
-    ```javascript
-    import {screen , render } from "@testing-library/react";
-    ```
+```shell
+npm install --save-dev @vitest/ui
+```
+
+Add this to your `package.json` script objects to run your tests:
+
+```json
+"scripts": {
+  "test:ui": "vitest --ui"
+}
+```
+
+Import these from the React Testing Library to begin your tests:
+
+```javascript
+import { screen, render } from "@testing-library/react";
+```
+
+Now you're all set to use `vitest-dom` in your project. Happy testing!
+
 
 
 ### Setting up Cypress Testing (Tools for React Apps) in Your Project
