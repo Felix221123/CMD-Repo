@@ -4,6 +4,8 @@ This repository stores all the commands I frequently use as a developer (the one
 
 ## Command List
 
+### Setting up React App using vite
+
 Here is a list of them:
 
 * `npx create-vite@latest` - Used for a new React/Angular/Svelte project.
@@ -173,7 +175,7 @@ Now you're all set to use `vitest-dom` in your project. Happy testing!
 
 4. Create a new component from the create new component and choose a new component to start with in your project
 
-### Cypress TypeScript Configuration
+#### Cypress TypeScript Configuration
 
 To configure Cypress with TypeScript, follow these steps:
 
@@ -241,3 +243,183 @@ To configure Cypress with TypeScript, follow these steps:
    "include": ["src", "cypress", "./cypress.d.ts"],
    ```
 
+
+
+
+```markdown
+### NodeJS && ExpressJS Project Setup Instructions
+
+This guide will walk you through setting up a Node.js server project with TypeScript, including initializing NPM, installing dependencies, and configuring the project structure.
+
+#### Step 1: Initialize NPM in the Server Folder
+
+1. Open your terminal or command prompt.
+2. Navigate to the folder where you want to create your project:
+   ```sh
+   cd path/to/your/project
+   ```
+3. Create a folder called `server` and navigate into it:
+   ```sh
+   mkdir server
+   cd server
+   ```
+4. Initialize a new NPM project with default settings:
+   ```sh
+   npm init -y
+   ```
+
+#### Step 2: Install Express Dependency
+
+1. Install Express and its types:
+   ```sh
+   npm install --save express
+   npm install --save-dev @types/express
+   ```
+
+#### Step 3: Create the Source Folder and Index File
+
+1. Create a `src` folder inside the `server` folder:
+   ```sh
+   mkdir src
+   ```
+2. Inside the `src` folder, create a file called `index.ts`:
+   ```sh
+   cd src
+   touch index.ts
+   ```
+3. Add a reference to the documentation in `index.ts`:
+   ```typescript
+   // Reference to the docs
+   // Add your TypeScript code here
+   ```
+
+4. Create a `tsconfig.json` file in the `server` folder and add the following configuration:
+   ```json
+   {
+     "compilerOptions": {
+       "target": "es6",
+       "module": "commonjs",
+       "strict": true,
+       "esModuleInterop": true,
+       "skipLibCheck": true,
+       "outDir": "./dist",
+       "baseUrl": "./",
+       "typeRoots": [
+         "./node_modules/@types",
+         "./types" // Ensure your custom types are recognized
+       ],
+       "paths": {
+         "*": ["node_modules/*", "src/*"] // Adjust according to your project structure
+       }
+     },
+     "ts-node": {
+       "files": true
+     }
+   }
+   ```
+
+#### Step 4: Install `ts-node`
+
+1. Install `ts-node` and Node.js types as development dependencies:
+   ```sh
+   npm install --save-dev ts-node @types/node
+   ```
+
+#### Step 5: Install Needed Dependencies
+
+1. Install `nodemon` to automatically restart the server on code changes:
+   ```sh
+   npm install --save-dev nodemon
+   ```
+
+2. Install `eslint` to lint your code:
+   ```sh
+   npx eslint --init
+   ```
+
+3. Install `dotenv` to manage environment variables:
+   ```sh
+   npm install dotenv
+   ```
+
+4. Install `cors` and its types to handle CORS policies:
+   ```sh
+   npm install cors
+   npm install --save-dev @types/cors
+   ```
+
+5. Install `mongoose` for MongoDB interactions:
+   ```sh
+   npm install mongoose
+   ```
+
+6. Install `envalid` to validate environment variables:
+   ```sh
+   npm install envalid
+   ```
+
+7. Install `bcrypt` and its types to hash passwords:
+   ```sh
+   npm install bcrypt
+   npm install --save-dev @types/bcrypt
+   ```
+
+8. Install `express-session` and its types for session management:
+   ```sh
+   npm install express-session
+   npm install --save-dev @types/express-session
+   ```
+
+9. Install `connect-mongo` to store sessions in MongoDB:
+   ```sh
+   npm install connect-mongo
+   ```
+
+#### Step 6: Create a `nodemon.json` Configuration File
+
+1. Create a `nodemon.json` file in the `server` folder with the following content:
+   ```json
+   {
+     "watch": ["src"],
+     "ext": "ts,json",
+     "ignore": ["src/**/*.spec.ts"],
+     "exec": "ts-node ./src/index.ts"
+   }
+   ```
+
+#### Step 7: Add Scripts to `package.json`
+
+1. Open the `package.json` file in the `server` folder.
+2. Add the following scripts to the `scripts` section:
+   ```json
+   "scripts": {
+     "server": "nodemon",
+     "lint": "eslint ./"
+   }
+   ```
+
+#### Final Structure
+
+Your project structure should look like this:
+
+```
+/path/to/your/project
+└── server
+    ├── node_modules
+    ├── package.json
+    ├── nodemon.json
+    ├── tsconfig.json
+    ├── src
+    │   └── index.ts
+    └── ...
+```
+
+#### Running the Project
+
+1. To start the server, run:
+   ```sh
+   npm run server
+   ```
+
+Your TypeScript code in `src/index.ts` will now run using `nodemon` and `ts-node`, automatically restarting the server whenever you make changes to the code.
+```
