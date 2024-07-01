@@ -10,6 +10,8 @@ Here is a list of them:
 
 * `npx create-vite@latest` - Used for a new React/Angular/Svelte project.
 * `npm i` - Used for installing all the node modules along with `packages.json`.
+* `npm install --save-dev eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-prettier eslint-plugin-prettier prettier` - Used for installing eslint and prettier `packages.json`.
+
 
 ### Required Scripts Commands in package.json
 
