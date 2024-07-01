@@ -259,7 +259,6 @@ To configure Cypress with TypeScript, follow these steps:
 
 
 
-```markdown
 ### NodeJS && ExpressJS Project Setup Instructions
 
 This guide will walk you through setting up a Node.js server project with TypeScript, including initializing NPM, installing dependencies, and configuring the project structure.
@@ -347,7 +346,7 @@ This guide will walk you through setting up a Node.js server project with TypeSc
 
 2. Install `eslint` to lint your code:
    ```sh
-   npx eslint --init
+   npm install eslint@8.56.0
    ```
 
 3. Install `dotenv` to manage environment variables:
