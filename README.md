@@ -134,6 +134,7 @@ Add this to your `package.json` script objects to run your tests:
 
 ```json
 "scripts": {
+   "test":"vitest",
   "test:ui": "vitest --ui"
 }
 ```
@@ -142,6 +143,7 @@ Import these from the React Testing Library to begin your tests:
 
 ```javascript
 import { screen, render } from "@testing-library/react";
+import { describe,it, expect } from "vitest";
 ```
 
 Now you're all set to use `vitest-dom` in your project. Happy testing!
