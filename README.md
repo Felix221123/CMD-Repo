@@ -60,10 +60,11 @@ yarn add --dev vitest-dom
 pnpm add --dev vitest-dom
 ```
 
-Install jsdom and other necessary packages:
+Install jsdom and vitest and other necessary packages:
 
 ```shell
 npm install --save-dev jsdom @testing-library/react @testing-library/jest-dom
+npm install -D vitest
 ```
 
 Import the matchers from `vitest-dom/matchers` once (preferably in your [tests setup file](#)), then pass them to Vitest's `expect.extend` method:
