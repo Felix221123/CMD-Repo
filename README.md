@@ -135,7 +135,7 @@ Add this to your `package.json` script objects to run your tests:
 ```json
 "scripts": {
    "test":"vitest",
-  "test:ui": "vitest --ui"
+  "test:ui":"vitest --ui"
 }
 ```
 
