@@ -10,29 +10,6 @@ Here is a list of them:
 
 * `npx create-vite@latest` - Used for a new React/Angular/Svelte project.
 * `npm i` - Used for installing all the node modules along with `packages.json`.
-* `npm install --save-dev eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-prettier eslint-plugin-prettier prettier` - Used for installing eslint and prettier `packages.json`.
-* create a .prettierrc.js and paste this inside it
-```js
-module.exports = {
-  singleQuote: true,
-  semi: true,
-  useTabs: false,
-  tabWidth: 2,
-  trailingComma: "all",
-};
-
-```
-
-
-### Required Scripts Commands in package.json
-
-Here is a list of scripts to run in `package.json` (both frontend and backend):
-
-```json
-"predeploy": "npm run build",
-"deploy": "gh-pages -d build"
-```
-These scripts are used to build projects to production and deploy them. Install `gh-pages` first before using the deploy scripts.
 
 ### Adding Tailwind CSS to a Project
 
