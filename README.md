@@ -236,6 +236,43 @@ To configure Cypress with TypeScript, follow these steps:
    "include": ["src", "cypress", "./cypress.d.ts"],
    ```
 
+10. **Update `cypress config file`**:
+    Change the cypress config file from .ts to .js if you are using vite version v5+ in order to run the modules.
+
+
+### My preferred configuration for .eslintrc.cjs
+    ```cjs
+         module.exports = {
+         root: true,
+         env: { browser: true, es2020: true },
+         extends: [
+            'eslint:recommended',
+            'plugin:@typescript-eslint/recommended',
+            'plugin:react-hooks/recommended',
+         ],
+         ignorePatterns: ['dist', '.eslintrc.cjs'],
+         parser: '@typescript-eslint/parser',
+         plugins: ['react-refresh'],
+         rules: {
+            'react-refresh/only-export-components': [
+               'warn',
+               { allowConstantExport: true },
+            ],
+            "@typescript-eslint/no-namespace": "off",
+            "unused-imports/no-unused-imports-ts": "off",
+            "@typescript-eslint/no-unused-vars": "off",
+            "unused-imports/no-unused-vars": [
+               0,
+               {
+               "varsIgnorePattern": "^_",
+               "args": "after-used",
+               "argsIgnorePattern": "^_",
+               },
+            ]
+         },
+         }
+   ```
+
 
 
 
