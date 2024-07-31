@@ -325,26 +325,30 @@ This guide will walk you through setting up a Node.js server project with TypeSc
 4. Create a `tsconfig.json` file in the `server` folder and add the following configuration:
    ```json
    {
-     "compilerOptions": {
-       "target": "es6",
-       "module": "commonjs",
-       "strict": true,
-       "esModuleInterop": true,
-       "skipLibCheck": true,
-       "outDir": "./dist",
-       "baseUrl": "./",
-       "typeRoots": [
-         "./node_modules/@types",
-         "./types" // Ensure your custom types are recognized
-       ],
-       "paths": {
-         "*": ["node_modules/*", "src/*"] // Adjust according to your project structure
-       }
-     },
-     "ts-node": {
-       "files": true
-     }
-   }
+      "compilerOptions": {
+         "target": "es6",
+         "module": "commonjs",
+         "strict": true,
+         "esModuleInterop": true,
+         "skipLibCheck": true,
+         "outDir": "./dist",
+         "rootDir": "./src",
+         "ignoreDeprecations": "5.0",
+         "baseUrl": "./",
+         "typeRoots": [
+            "./node_modules/@types",
+            "./types" // Ensure your custom types are recognized
+         ],
+         "paths": {
+            "*": ["node_modules/*", "src/*"] // Adjust according to your project structure
+         }
+      },
+      "ts-node": {
+         "files": true,
+         "transpileOnly": true,
+      },
+      "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"],
+  }
    ```
 
 #### Step 4: Install `ts-node`
@@ -404,6 +408,18 @@ This guide will walk you through setting up a Node.js server project with TypeSc
    npm install connect-mongo
    ```
 
+10. Install `jest and its types` to test your rest API:
+   ```sh
+   npm i --save-dev typescript supertest jest ts-jest @types/jest @types/supertest @types/express
+   ```
+
+10. Install `jest config file` for configuration:
+   ```sh
+   npx ts-jest config:init
+   ```
+
+
+
 #### Step 6: Create a `nodemon.json` Configuration File
 
 1. Create a `nodemon.json` file in the `server` folder with the following content:
@@ -416,16 +432,54 @@ This guide will walk you through setting up a Node.js server project with TypeSc
    }
    ```
 
-#### Step 7: Add Scripts to `package.json`
+#### Step 7: Add Scripts to `package.json` and `jest.config.js`
 
 1. Open the `package.json` file in the `server` folder.
 2. Add the following scripts to the `scripts` section:
    ```json
    "scripts": {
      "server": "nodemon",
-     "lint": "eslint ./"
+     "lint": "eslint ./",
+      "test": "jest --coverage",
+      "build":"tsc --out dist"
    }
    ```
+3. Add the following `jest.config.js` file:
+   ```js
+      /** @type {import('ts-jest').JestConfigWithTsJest} **/
+      module.exports = {
+         preset: "ts-jest",
+         testEnvironment: "node",
+         transform: {
+            "^.+.tsx?$": ["ts-jest",{}],
+         },
+      };
+   ```
+   
+#### Step 8: Create a `.gitignore` Configuration File
+
+1. Lastly don't forget your .gitignore file where you wanna hide some personal stuffs like your api key from github and other user 😃
+```gitignore
+      .vscode/*
+      !.vscode/settings.json
+      !.vscode/tasks.json
+      !.vscode/launch.json
+      !.vscode/extensions.json
+      !.vscode/*.code-snippets
+
+      # Local History for Visual Studio Code
+      .history/
+      node_modules
+
+      .DS_Store
+      .env
+      dist
+      coverage
+
+      # Built Visual Studio Code Extensions
+      *.vsix
+```
+
 
 #### Final Structure
 
